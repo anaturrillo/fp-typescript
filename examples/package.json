@@ -1,0 +1,81 @@
+{
+  "name": "typescript-base",
+  "version": "0.1.0",
+  "description": "Example base for typescript projects",
+  "engines": {
+    "node": "10.14.1",
+    "npm": "6.4.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./server.ts",
+    "eslint-check": "eslint --print-config .eslintrc.js --ignore-pattern ./.eslintrc.js | eslint-config-prettier-check",
+    "lint": "tsc --noEmit && eslint \"*/**/*.ts\"",
+    "lint-diff": "git diff --name-only --cached --relative | grep \\\\.ts$ | xargs eslint",
+    "lint-fix": "eslint \"**/*.ts\" --fix",
+    "precommit": "npm run lint-diff",
+    "start": "npm run build && node ./dist/server.js",
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "main": "app.js",
+  "author": "Wolox",
+  "homepage": "https://github.com/mpicollo-wolox/typescript-base",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mpicollo-wolox/typescript-base.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mpicollo-wolox/typescript-base/issues",
+    "email": "tls@wolox.com.ar"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.ts",
+      "!**/console.js",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!**/migrations/**",
+      "!**/config/**",
+      "!**/scripts/**",
+      "!**/docs/**"
+    ],
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.ts"
+    ]
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/babel-core": "^6.25.6",
+    "@types/babel-traverse": "^6.25.5",
+    "@types/node": "^12.6.2",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/eslint-plugin-tslint": "^2.5.0",
+    "@typescript-eslint/parser": "^2.3.1",
+    "babel": "6.23.0",
+    "babel-core": "6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-jest": "^25.0.0",
+    "babel-preset-env": "^1.7.0",
+    "dictum.js": "^1.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-config-wolox": "^3.0.2",
+    "eslint-config-wolox-node": "^2.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "nodemon": "^1.18.7",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.0",
+    "ts-node-dev": "1.0.0-pre.40",
+    "tslint": "^5.20.0",
+    "typescript": "^3.7.2"
+  }
+}
