@@ -56,6 +56,7 @@ const someFunctionTRW: FunctionReturningPromise = () =>
 **ejemplos:** `examples/cases/scope` y `examples/cases/promiseAll`
 
 **B)**  "Promise hell" para mantener el scope. 
+
 Se acuerdan del callback hell??? Bueno, welcome to promises.
 Con promesas puedo de exactamente la misma manera generar el triángulo del horror.
 Por ejemplo:
