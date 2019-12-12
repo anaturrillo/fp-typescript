@@ -372,7 +372,3 @@ anObjectWithMethod.validateSomething(''); // OK
 
  readOnly???
  VER TEMA PARTIALS ??
- 
- http://ducin.it/typescript-anti-patterns
- https://dev.to/wolksoftware/why-typescript-is-a-better-option-than-javascript-when-it-comes-to-functional-programming-3mp0
- 
