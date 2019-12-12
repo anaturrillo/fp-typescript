@@ -4,6 +4,7 @@ Code smells
 ----------------
    
  **A)** Modificar una variable fuera del scope porque necesito usarla luego del fullfilment de una promesa.
+ 
  Los valores que quiero usar luego de la resolución de una promesa deben ser RETORNADOS por esa promesa y tengo que
  usarlose en el scope de la siguiente función.
 
@@ -54,7 +55,8 @@ const someFunctionTRW: FunctionReturningPromise = () =>
 ```
 **ejemplos:** `examples/cases/scope` y `examples/cases/promiseAll`
 
-**B)**  "Promise hell" para mantener el scope. Se acuerdan del callback hell??? Bueno, welcome to promises.
+**B)**  "Promise hell" para mantener el scope. 
+Se acuerdan del callback hell??? Bueno, welcome to promises.
 Con promesas puedo de exactamente la misma manera generar el triángulo del horror.
 Por ejemplo:
 
@@ -110,7 +112,6 @@ const myFunctionTRW_: FunctionReturningPromise = (someRelevantData) =>
 ```
 **ejemplos:** `examples/cases/promiseHell`
 
-
 Posiblemente no se termine de apreciar por los desafortunados nombres que elegimos para los ejemplos,
 pero imaginemos...
 
@@ -133,6 +134,7 @@ agregar ejemplo
 ```
 
 **D)** let + condicionales para llenarlo (let x; if(a) x = 1 else x = 2;). 
+
 Transformar a una funcion (if (a) return 1 else return 2)
 ``` 
 agregar ejemplo
@@ -149,6 +151,7 @@ agregar ejemplo
 agregar ejemplo
 ```
 Usar ejemplo de teranarios gigantes
+
 ejemplo funciones:
    // definition
    const ifElse = (expr: boolean, t: Lazy, f: Lazy) =>
@@ -180,6 +183,7 @@ Explicar por qué no se puede hacer await de foreach. Comparar con un for.
 mostrar ejemplo correcto con promise.all y con reduce concatenando promesas
 
 **H)** Hard limit para tamaño de funciones?
+
  (si no, se peca de imperativo). 15 LoC? Single responsability, KISS, delegación, god object, etc.
 
 **I)** exceso de anidamiento
