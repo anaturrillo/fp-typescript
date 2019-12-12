@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1a1ca722-6584-4f81-98d1-0c3ae1a48504" name="Default Changelist" comment="" />
+    <list default="true" id="1a1ca722-6584-4f81-98d1-0c3ae1a48504" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/lookupTypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/overUseOfClasses.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/promiseAll.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/promiseHell.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/scope.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/typeExtraction.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/cases/typeInference.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/helpers/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/fp-typescript.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fp-typescript.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../typescript-bootstrap/node-typescript-bootstrap/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../typescript-bootstrap/node-typescript-bootstrap/package-lock.json" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1Ur96f8IkdfEVYrggPxLvaWgrzF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/examples" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../typescript-bootstrap/node-typescript-bootstrap" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.TypeScript" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -42,11 +73,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1576103948423</updated>
-      <workItem from="1576103961893" duration="236000" />
+      <workItem from="1576103961893" duration="399000" />
+      <workItem from="1576180909567" duration="13081000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
