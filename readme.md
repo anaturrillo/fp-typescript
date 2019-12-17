@@ -127,26 +127,15 @@ pero imaginemos...
 ```
 <3
 
-
-**C)** Compartir estado entre funciones en una cadena .then
-
-``` 
-agregar ejemplo
-```
-
-**D)** let + condicionales para llenarlo (let x; if(a) x = 1 else x = 2;). 
+**C)** let + condicionales para llenarlo (let x; if(a) x = 1 else x = 2;). 
 
 Transformar a una funcion (if (a) return 1 else return 2)
 ``` 
 agregar ejemplo
 ```
-**E)** Crear indices/arrays nuevos usando map | reduce, no forEach.
 
-``` 
-agregar ejemplo
-```
 
-**F)** Condiciones no complejas (no me acuerdo a qué venía este punto)
+**E)** Condiciones no complejas (no me acuerdo a qué venía este punto)
 
 ``` 
 agregar ejemplo
@@ -165,7 +154,14 @@ ejemplo funciones:
        () => 'odd');
  
 
-**G)** Diferencias forEach, map, for(... in ...) + await + promises
+**D)** Crear indices/arrays nuevos usando map | reduce, no forEach.
+
+``` 
+agregar ejemplo
+```
+
+
+**F)** Diferencias forEach, map, for(... in ...) + await + promises
 
 WRONG!
 ```
@@ -183,11 +179,11 @@ WRONG!
 Explicar por qué no se puede hacer await de foreach. Comparar con un for.
 mostrar ejemplo correcto con promise.all y con reduce concatenando promesas
 
-**H)** Hard limit para tamaño de funciones?
+**G)** Hard limit para tamaño de funciones?
 
  (si no, se peca de imperativo). 15 LoC? Single responsability, KISS, delegación, god object, etc.
 
-**I)** exceso de anidamiento
+**H)** exceso de anidamiento
 ```
 ALGO ASI
 const manySteps = (array: string[]) =>
