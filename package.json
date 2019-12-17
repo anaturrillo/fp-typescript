@@ -14,7 +14,7 @@
     "lint-diff": "git diff --name-only --cached --relative | grep \\\\.ts$ | xargs eslint",
     "lint-fix": "eslint \"**/*.ts\" --fix",
     "precommit": "npm run lint-diff",
-    "start": "npm run build && node ./dist/server.js",
+    "start": "npm run build && node ./dist/server.js"
   },
   "cacheDirectories": [
     "node_modules"
@@ -50,8 +50,7 @@
       "<rootDir>/tests/setup.ts"
     ]
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/babel-core": "^6.25.6",
     "@types/babel-traverse": "^6.25.5",

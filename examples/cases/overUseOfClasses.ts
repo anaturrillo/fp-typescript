@@ -12,10 +12,10 @@ validator.validateSomething(5);
 validator.validateSomething('');
 
 const anObjectWithMethod = {
-    validateSomething: (email: string): boolean => {
-      return true;
-    }
-  };
+  validateSomething: (email: string): boolean => {
+    return true;
+  }
+};
 
 anObjectWithMethod.validateSomething();
 anObjectWithMethod.validateSomething(5);

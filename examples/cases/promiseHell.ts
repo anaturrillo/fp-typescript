@@ -8,10 +8,10 @@ const myFuncion: FunctionReturningPromise = (someRelevantData) => {
         .then(isValid => {
           return someAsyncOperation(response)
             .then(secondResponse => {
-              return someSyncOperation(secondResponse, someRelevantData)
-            })
-        })
-    })
+              return someSyncOperation(secondResponse, someRelevantData);
+            });
+        });
+    });
 };
 
 const muFunctionEvenWorst: FunctionReturningPromise = (someRelevantData) =>
@@ -30,12 +30,12 @@ const myFunctionTRW: FunctionReturningPromise = (someRelevantData) =>
 
 
 
-const validate = async response => {
+const validate = async (response): Promise => {
   try {
     await validateAsync(response);
-    return response
+    return response;
   } catch (e) {
-    return Promise.reject()
+    return Promise.reject();
   }
 };
 

@@ -1,3 +1,4 @@
 .idea/
-refactor
-node_modules
+refactor/
+node_modules/
+dist/

@@ -1,10 +1,12 @@
+import {SyncFunction} from "../types";
+
 type User = {
-  name: string,
-  salary: number,
-  email: string,
-  retired: boolean
-}
+  name: string;
+  salary: number;
+  email: string;
+  retired: boolean;
+};
 
-const getUserByEmail = (email: string) => {};
+const getUserByEmail: SyncFunction = (email: string) => ({});
 
-const getUserByEmailTRW = (email: User["email"]) => {};
+const getUserByEmailTRW: SyncFunction = (email: User["email"]) => ({});
