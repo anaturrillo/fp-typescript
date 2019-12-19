@@ -20,5 +20,6 @@ const waitingForValuesMap = async (items): Promise => {
 };
 
 const waitingForValuesReduce = async (items): Promise => {
-
+ await items.reduce((promise, item) => promise.then(someAsyncOperation), Promise.resolve());
+ return someAsyncOperation();
 };
