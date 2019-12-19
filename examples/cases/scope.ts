@@ -11,8 +11,8 @@ const someFunction: FunctionReturningPromise = () => {
     })
     .then(() => {
       if (someValueIWantToUseLater) return 'Hi';
-      return 'Bye'
-    })
+      return 'Bye';
+    });
 };
 
 const someFunctionTRW: FunctionReturningPromise = () =>

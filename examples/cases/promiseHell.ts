@@ -1,4 +1,4 @@
-import {FunctionReturningPromise} from "../types";
+import {FunctionReturningPromise, GenericData, ResponseData, Validator} from "../types";
 import {myRequest, someAsyncOperation, someSyncOperation, validateAsync} from "../helpers";
 
 const myFuncion: FunctionReturningPromise = (someRelevantData) => {
@@ -30,17 +30,18 @@ const myFunctionTRW: FunctionReturningPromise = (someRelevantData) =>
 
 
 
-const validate = async (response): Promise => {
+const validate: FunctionReturningPromise = async (response: ResponseData) => {
   try {
     await validateAsync(response);
     return response;
   } catch (e) {
-    return Promise.reject();
+    return Promise.reject(response);
   }
 };
 
-const handleFirstResponse = response => someAsyncOperation(response);
-const handleSecondResponse = someRelevantData => secondResponse => someSyncOperation(secondResponse, someRelevantData);
+const handleFirstResponse: FunctionReturningPromise = response => someAsyncOperation(response);
+const handleSecondResponse = someRelevantData => (secondResponse): GenericData =>
+  someSyncOperation(secondResponse, someRelevantData);
 
 const myFunctionTRW_: FunctionReturningPromise = (someRelevantData) =>
   myRequest()

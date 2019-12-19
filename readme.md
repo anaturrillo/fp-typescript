@@ -20,8 +20,8 @@ const someFunction: FunctionReturningPromise = () => {
     })
     .then(() => {
       if (someValueIWantToUseLater) return 'Hi';
-      return 'Bye'
-    })
+      return 'Bye';
+    });
 };
 ```
 Si sólo necesitamos un valor, simplemente:
@@ -31,29 +31,31 @@ const someFunctionTRW: FunctionReturningPromise = () =>
   myRequest()
     .then(someValue => someValue ? 'Hi' : 'Bye');
 ```
+**ejemplos:** `examples/cases/scope`
+
 Si nuestra función necesita retornar dos valores, por ejemplo:
 ``` 
 const someFunction: FunctionReturningPromise = () => {
-    let someValueIWantToUseLater: ResponseData = {};
+  let someValueIWantToUseLater: ResponseData = {};
 
-    return myRequest()
-        .then(someValue => {
-            someValueIWantToUseLater = someValue;
-            return 0;
-        })
-        .then(num => {
-            if (someValueIWantToUseLater) return num;
-            return num + 1
-        })
+  return myRequest()
+    .then(someValue => {
+      someValueIWantToUseLater = someValue;
+      return 0;
+    })
+    .then(num => {
+      if (someValueIWantToUseLater) return num;
+      return num + 1;
+    });
 };
 ```
 ```
 const someFunctionTRW: FunctionReturningPromise = () =>
-    myRequest()
-        .then(someValue => Promise.all([someValue, 0]))
-        .then(([someValue, num]) => someValue ? num : num + 1);
+  myRequest()
+    .then(someValue => Promise.all([someValue, 0]))
+    .then(([someValue, num]) => someValue ? num : num + 1);
 ```
-**ejemplos:** `examples/cases/scope` y `examples/cases/promiseAll`
+**ejemplos:** `examples/cases/promiseAll`
 
 **B)**  "Promise hell" para mantener el scope. 
 
@@ -69,10 +71,10 @@ const myFuncion: FunctionReturningPromise = (someRelevantData) => {
         .then(isValid => {
           return someAsyncOperation(response)
             .then(secondResponse => {
-              return someSyncOperation(secondResponse, someRelevantData)
-            })
-        })
-    })
+              return someSyncOperation(secondResponse, someRelevantData);
+            });
+        });
+    });
 };
 ```
 En el ejemplo, nuestro querido programador, se alejó del promise chain para poder conservar en el scope algunas 
@@ -93,17 +95,18 @@ Y en un segundo ejemplo de solución extraemos cada paso a una función. De esta
 queda simple y sobre todo declarativa (además de que permite handlear errores parciales
 de manera ordenada):
 ```
-const validate = async response => {
+const validate: FunctionReturningPromise = async (response: ResponseData) => {
   try {
     await validateAsync(response);
-    return response
+    return response;
   } catch (e) {
-    return Promise.reject()
+    return Promise.reject(response);
   }
 };
 
-const handleFirstResponse = response => someAsyncOperation(response);
-const handleSecondResponse = someRelevantData => secondResponse => someSyncOperation(secondResponse, someRelevantData);
+const handleFirstResponse: FunctionReturningPromise = response => someAsyncOperation(response);
+const handleSecondResponse = someRelevantData => (secondResponse): GenericData =>
+  someSyncOperation(secondResponse, someRelevantData);
 
 const myFunctionTRW_: FunctionReturningPromise = (someRelevantData) =>
   myRequest()
@@ -127,57 +130,194 @@ pero imaginemos...
 ```
 <3
 
-**C)** let + condicionales para llenarlo (let x; if(a) x = 1 else x = 2;). 
-
-Transformar a una funcion (if (a) return 1 else return 2)
+**C)** En los viejos tiempos una práctica bastante común era definir una variable y popularla dependiendo de una
+condición. Así:
 ``` 
-agregar ejemplo
-```
+const someFunction: SyncFunction = (someCondition: boolean) => {
+  let someValue = '';
 
+  if (someCondition) {
+    someValue = 'hi';
+  } else {
+    someValue = 'bye';
+  }
+
+  return someValue;
+};
+```
+Además de que ya no es necesario modificar una variable porque desde ES6 con const y let el scope es por bloque. Por lo 
+podríamos hacer:
+``` 
+const someFunction: SyncFunction = (someCondition: boolean) => {
+  if (someCondition) {
+    const someValue = 'hi';
+  } else {
+    const someValue = 'bye';
+  }
+
+  return someValue;
+};
+```
+Sin embargo hay mejor formas de resolver esta situación:
+Teniendo en cuenta que el return termina la ejecución de una función podemos retornar directamente dentro del condicional.
+```
+const someFunctionTRW2: SyncFunction = (someCondition: boolean) => {
+  if (someCondition) return 'hi';
+  return 'bye';
+};
+```
+Y por supuesto una forma muy limpia de hacer lo mismo es retornar una expresión:
+```
+const someFunctionTRW: SyncFunction = (someCondition: boolean) => someCondition ? 'hi' : 'bye';
+```
+Y evaluando un ejemplo con promesas, en vez de hacer:
+```
+const someMoreComplexFunction: FunctionWithConditionReturningPromise = (someCondition: boolean) => {
+  return someAsyncOperation()
+    .then(() => {
+      if (someCondition)
+        return someAsyncOperation()
+          .then((result: GenericData) => validateAsync(result).then((isValid) => {
+            if (isValid) return {};
+            return Promise.reject();
+          }));
+
+      return myRequest()
+        .then(response => validateAsync(response).then(isValid => {
+          if (isValid) return Promise.reject();
+          return {};
+        }));
+    });
+};
+```
+Podríamos plantear una función:
+```
+const someMoreComplexFunctionTRW: FunctionReturningPromise = someCondition => {
+  return someAsyncOperation()
+    .then(evaluateCondition(someCondition));
+}; 
+```
+En la que llamamos a una función cuya responsabilidad es evaluar la condición:
+``` 
+const evaluateCondition = condition => (): Promise =>  condition ? someOption() : someOtherOption();
+```
+Esta función seleccionará que "flow" ejecutar, cada uno definido en una función:
+``` 
+const someOption: FunctionReturningPromise = () =>
+  someAsyncOperation()
+    .then(otherResult => validateAsync(otherResult))
+    .then(isValid => isValid ? {} : Promise.reject());
+
+const someOtherOption: FunctionReturningPromise = () =>
+  myRequest()
+    .then(response => someSyncOperation(0, 1));
+```
+Esta aproximación logra una mejor división de responsabilidades y es más declarativa que la anterior.
+
+**ejemplos:** `examples/cases/conditionals`
 
 **E)** Condiciones no complejas (no me acuerdo a qué venía este punto)
 
 ``` 
-agregar ejemplo
-```
 Usar ejemplo de teranarios gigantes
-
-ejemplo funciones:
-   // definition
-   const ifElse = (expr: boolean, t: Lazy, f: Lazy) =>
-     expr ? t() : f();
-
-   // use
-   const evenOrOdd = (x: number) =>
-     ifElse(x % 2 === 0,
-       () => 'even',
-       () => 'odd');
+```
  
 
-**D)** Crear indices/arrays nuevos usando map | reduce, no forEach.
+**D)** forEach para recorrer un array.
+
+Muchas veces vamos a necesitar modificar un array o incluso crear un objeto a partir de un array. Puede ser que 
+te veas tentado de usar un forEach, porque te recuerda a tu viejo y querido for. NO LO HAGAS!
+Si necesitás, por ejemplo modificar un array:
 
 ``` 
-agregar ejemplo
+const functionToCreateNewArray = (arr: GenericData[]): GenericData[] => {
+  const result = [];
+  arr.forEach((item) => {
+    result.push({aNumber: item.aNumber, aString: item.aString});
+  });
+  return result;
+};
 ```
-
-
-**F)** Diferencias forEach, map, for(... in ...) + await + promises
-
-WRONG!
+Lo que deberías hacer es usar map! Map recorre el array y devuelve un nuevo array:
+``` 
+const functionToCreateNewArrayTRW = (arr: GenericData[]): GenericData[] =>
+  arr.map((e) => ({
+    aNumber: e.aNumber + 1,
+    aString: e.aString
+  }));
 ```
- const arrayEnElQueGuardoTodo = [];
- 
- await arrayConCosas.forEach(async cosa => {
-    await cosa.updatear();
-    arrayEnElQueGuardoTodo.push(cosa);
-});
+El map simpre va a retornar un array, por eso si lo que necesitamos es crear un objeto a partir de un array.
 
-return arrayEnElQueGuardoTodo;
+En vez de:
+``` 
+const functionToCreateIndex: IndexCreator = arr => {
+  const result = {};
+  arr.forEach(item => {
+    result[item.aNumber] = item;
+  });
+  return result;
+};
+
+const reducerFunction = (arr: GenericData[]): GenericData => {
+  const result = {
+    aNumber: 0,
+    aString: ''
+  };
+
+  arr.forEach(item => {
+    result.aNumber = result.aNumber + item.aNumber;
+    result.aString = result.aString + item.aString;
+  });
+
+  return result;
+};
 ```
-WRONG!
+Usá reduce!
+``` 
+const functionToCreateIndexTRW: IndexCreator = arr =>
+  arr.reduce((index, item) => ({...index, [item.aNumber]: item}), {});
 
-Explicar por qué no se puede hacer await de foreach. Comparar con un for.
-mostrar ejemplo correcto con promise.all y con reduce concatenando promesas
+const reducerFunctionTRW = (arr: GenericData[]): GenericData =>
+  arr.reduce((result, item) => ({
+    aNumber: result.aNumber + item.aNumber,
+    aString: result.aString + item.aString
+  }), {aNumber: 0, aString: ''});
+```
+Programando en funcional en líneas generales deberíamos intentar evitar el forEach ya que no retorna nada, su
+comportamiento puede dar resultados inesperados como el ejempl que veremos a continuación.
+
+**F)** Await forEach.
+
+Como mencionamos forEach() NO retorna nada, por lo tanto NO se puede awaitear, porque el await espera por el valor a
+continuación, que en el caso de un forEach() es undefined.
+``` 
+const waitingForValues = async (items): Promise => {
+  await items.forEach(item => {
+    return someAsyncOperation(item);
+  });
+  return someAsyncOperation();
+};
+```
+Tampoco sirve awaitear a la función dentro del forEach porque el await que en el scope del forEach y no en el de la
+función que lo contiene, por lo tanto la ejecución de la función va a seguir sin esperar la resolución de la promesa.
+```
+const waitingForValues2 = (items): Promise => {
+  items.forEach(async item => {
+    await someAsyncOperation(item);
+  });
+  return someAsyncOperation();
+};
+```
+Lo que estás intentando hacer es emular lo que pasa con un for:
+``` 
+for (let i = 0; i < items.length; i++) {
+  await someAsyncOperation(items[i])
+}
+```
+En este caso SI funciona porque el await queda en el scope de la función principal, por eso la función "sabe" que tiene
+que esperar a que se resuelva esa promesa.
+
+
 
 **G)** Hard limit para tamaño de funciones?
 
